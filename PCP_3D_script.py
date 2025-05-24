@@ -16,6 +16,7 @@ from Lambert import Lambert_3D
 from ANGLE import turning_angle
 from Gravity_Assist import compute_swingby_parameters
 import plotly.graph_objects as go
+from PLOT_2D_PCP import plot_PCP_2D_array
 
 # Gravitational parameter μ (km^3/s^2)
 mu_planets = [
@@ -51,17 +52,17 @@ soi_planets = [
     8.66e6     # Neptune
 ]
 
-n = 20
-Planet_1 = 3
-Planet_2 = 5
-Planet_3 = 6
-DeltaT_min1 = 400
-DeltaT_Max1 = 1000
-DeltaT_min2 = 400
-DeltaT_Max2 = 1000
+n = 40
+Planet_1 = 2
+Planet_2 = 3
+Planet_3 = 4
+DeltaT_min1 = 100
+DeltaT_Max1 = 900
+DeltaT_min2 = 100
+DeltaT_Max2 = 900
 
 # Insert the initial (departure) date here
-Y1 = 2020
+Y1 = 2030
 M1 = 1
 D1 = 1
 utch1 = 0.0
@@ -69,7 +70,7 @@ utcm1 = 0.0
 utcs1 = 0.0
 JD1, JC1 = to_julian(Y1, M1, D1, utch1, utcm1, utcs1)
 
-Y2 = 2025
+Y2 = 2033
 M2 = 1
 D2 = 1
 utch2 = 0.0
@@ -107,7 +108,7 @@ for i in range(n):
 
         for k in range(n):
             launch_date2 = arrival_date
-            delta_t_days2 = deltaT_days2[j]
+            delta_t_days2 = deltaT_days2[k]
             delta_t_centuries2 = delta_t_days2 / 36500
             delta_t_seconds2 = delta_t_days2 * 86400
             arrival_date2 = arrival_date + delta_t_centuries2
@@ -137,13 +138,13 @@ for i in range(n):
 
             r_periapsis, Delta_V3, r_SOI, a1, a2 = compute_swingby_parameters(V1, V2, mu_planet, theta, r_planet, r_soi_planet)
             
-            Delta_V = Delta_V1 + Delta_V2 #+ Delta_V3
+            Delta_V = Delta_V1 + Delta_V2 + Delta_V3
             #print(Delta_V)
             # Store results
             Delta_V_matrix[i, j, k] = Delta_V
 
-Delta_V_matrix = np.clip(Delta_V_matrix, None, 90)
-
+#Delta_V_matrix = np.nan_to_num(Delta_V_matrix, nan=80)
+Delta_V_matrix = np.clip(Delta_V_matrix, 10, 110)
 # Create 3D meshgrid with proper indexing
 X, Y, Z = np.meshgrid(launch_dates, deltaT_days1, deltaT_days2, indexing='ij')
 
@@ -153,11 +154,11 @@ fig = go.Figure(data=go.Isosurface(
     y=Y.flatten(),  # 1D array of y-coordinates
     z=Z.flatten(),  # 1D array of z-coordinates
     value=Delta_V_matrix.flatten(),  # Corresponding Delta-V values
-    isomin=10,     # Adjust based on printed min/max
-    isomax=91,
-    surface_count=12,
+    isomin=65,     # Adjust based on printed min/max
+    isomax=111,
+    surface_count= 30,
     colorscale='Jet',
-    opacity=0.5,
+    opacity= 0.5,
     caps=dict(x_show=False, y_show=False, z_show=False),
     colorbar_title='Delta-V [km/s]'
 ))
@@ -173,3 +174,32 @@ fig.update_layout(
 )
 
 fig.show()
+    
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider
+
+init_k = 0
+n_k = Delta_V_matrix.shape[2]
+
+fig, ax = plt.subplots(figsize=(12, 7))
+plt.subplots_adjust(bottom=0.25)
+
+# Store the colorbar in a mutable container
+cbar_container = [None]
+
+# Initial plot
+plot_PCP_2D_array(Delta_V_matrix[:, :, init_k], launch_dates, deltaT_days1, ax, cbar_container)
+
+# Slider setup
+ax_slider = plt.axes([0.25, 0.1, 0.5, 0.03])
+slider = Slider(ax_slider, "TOF2 index (k)", 0, n_k - 1, valinit=init_k, valstep=1)
+
+def update(k):
+    k = int(k)
+    plot_PCP_2D_array(Delta_V_matrix[:, :, k], launch_dates, deltaT_days1, ax, cbar_container)
+    fig.canvas.draw_idle()
+
+slider.on_changed(update)
+plt.show()
+ 
+    

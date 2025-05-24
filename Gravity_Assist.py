@@ -119,8 +119,8 @@ def compute_swingby_parameters(vinf_minus, vinf_plus, mu_planet, delta_0, r_plan
         Delta_V = abs(v_pi_minus - v_pi_plus)
 
     else:
-        print("Warning: r_periapsis is zero or too small")
-        Delta_V = 60
+        #print("Warning: r_periapsis is zero or too small")
+        Delta_V = 30
     # print(Delta_V)
 
     # Plot with log10 scale on x-axis
