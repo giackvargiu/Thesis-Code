@@ -1,14 +1,21 @@
 # Thesis-Code
 
 cd ~/Desktop/THESIS\ CODE
+
 git status
+
 git add name_of_code.py name_of_code.py
+
 git add .
+
 git commit -m "Explanation of changes"
+
 git push
 
 If too big then:
+
 find . -type f -size +40M
+
 git config --global http.postBuffer 524288000
 
 echo "# test" > test_push.txt
