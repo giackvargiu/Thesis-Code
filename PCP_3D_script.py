@@ -9,7 +9,7 @@ Created on Wed May 14 17:02:56 2025
 # %matplotlib qt
 # %matplotlib inline
 
-
+import pickle
 import numpy as np
 from functions_plan import to_julian, state_vector
 from Lambert import Lambert_3D
@@ -143,6 +143,7 @@ for i in range(n):
             # Store results
             Delta_V_matrix[i, j, k] = Delta_V
 
+    
 #Delta_V_matrix = np.nan_to_num(Delta_V_matrix, nan=80)
 Delta_V_matrix = np.clip(Delta_V_matrix, 10, 110)
 # Create 3D meshgrid with proper indexing
