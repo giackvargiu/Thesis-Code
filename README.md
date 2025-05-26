@@ -22,3 +22,9 @@ echo "# test" > test_push.txt
 git add test_push.txt
 git commit -m "Test pushing a small file"
 git push
+
+If main has already commits:
+
+git pull origin main --rebase
+
+git push origin main
