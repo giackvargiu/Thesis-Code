@@ -3,11 +3,8 @@ import pickle
 import plotly.graph_objects as go
 import numpy as np
 
-with open("pcp_data.pkl", "rb") as f:
+with open("pcp_data_1.pkl", "rb") as f:
     launch_dates, deltaT_days1, deltaT_days2, Delta_V_matrix = pickle.load(f)
-
-#Delta_V_matrix = np.nan_to_num(Delta_V_matrix, nan=80)
-Delta_V_matrix = np.clip(Delta_V_matrix, 10, 110)
 
 X, Y, Z = np.meshgrid(launch_dates, deltaT_days1, deltaT_days2, indexing='ij')
 
@@ -17,7 +14,7 @@ fig = go.Figure(data=go.Isosurface(
     z=Z.flatten(),
     value=Delta_V_matrix.flatten(),
     isomin=np.min(Delta_V_matrix)+20,
-    isomax=np.max(Delta_V_matrix),
+    isomax=np.max(Delta_V_matrix)-10,
     surface_count=40,
     colorscale='Jet',
     opacity=0.5,

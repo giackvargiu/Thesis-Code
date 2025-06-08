@@ -15,7 +15,6 @@ from functions_plan import to_julian, state_vector
 from Lambert import Lambert_3D
 from ANGLE import turning_angle
 from Gravity_Assist import compute_swingby_parameters
-import plotly.graph_objects as go
 
 
 # Gravitational parameter μ (km^3/s^2)
@@ -52,7 +51,7 @@ soi_planets = [
     8.66e6     # Neptune
 ]
 
-n = 40
+n = 20
 Planet_1 = 2
 Planet_2 = 3
 Planet_3 = 4
@@ -145,5 +144,5 @@ for i in range(n):
 
 
 # Save to pickle
-with open("pcp_data.pkl", "wb") as f:
+with open("pcp_data_1.pkl", "wb") as f:
     pickle.dump((launch_dates, deltaT_days1, deltaT_days2, Delta_V_matrix), f)

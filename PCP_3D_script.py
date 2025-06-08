@@ -52,7 +52,7 @@ soi_planets = [
     8.66e6     # Neptune
 ]
 
-n = 40
+n = 20
 Planet_1 = 2
 Planet_2 = 3
 Planet_3 = 4
@@ -182,7 +182,7 @@ from matplotlib.widgets import Slider
 init_k = 0
 n_k = Delta_V_matrix.shape[2]
 
-fig, ax = plt.subplots(figsize=(12, 7))
+fig, ax = plt.subplots(figsize=(12, 12))
 plt.subplots_adjust(bottom=0.25)
 
 # Store the colorbar in a mutable container
