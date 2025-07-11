@@ -21,7 +21,7 @@ n_l = Delta_V_matrix.shape[3]
 
 # Create figure and axis
 fig, ax = plt.subplots(figsize=(10, 8))
-plt.subplots_adjust(bottom=0.35)  # Leave more room at the bottom for sliders
+plt.subplots_adjust(left=0.15, right=0.9, bottom=0.35, top=0.9)  # more top margin
 
 cbar_container = [None]
 

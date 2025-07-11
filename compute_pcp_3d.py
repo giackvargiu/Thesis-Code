@@ -51,7 +51,7 @@ soi_planets = [
     8.66e6     # Neptune
 ]
 
-n = 20
+n = 150
 Planet_1 = 2
 Planet_2 = 3
 Planet_3 = 4
@@ -146,3 +146,12 @@ for i in range(n):
 # Save to pickle
 with open("pcp_data_1.pkl", "wb") as f:
     pickle.dump((launch_dates, deltaT_days1, deltaT_days2, Delta_V_matrix), f)
+    
+
+np.savez("pcp_data_1.npz",
+         launch_dates=launch_dates,
+         deltaT_days1=deltaT_days1,
+         deltaT_days2=deltaT_days2,
+         Delta_V_matrix=Delta_V_matrix)
+    
+    

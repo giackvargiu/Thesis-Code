@@ -31,4 +31,26 @@ fig.update_layout(
     title='3D Isosurface of Delta-V Field'
 )
 
+# Find the 4D index of the minimum Delta_V
+min_index = np.unravel_index(np.argmin(Delta_V_matrix), Delta_V_matrix.shape)
+i, j, k = min_index
+
+# Get the corresponding coordinates for this minimum Delta_V
+min_launch_date = launch_dates[i]
+min_TOF1 = deltaT_days1[j]
+min_TOF2 = deltaT_days2[k]
+# Note: TOF3 is not shown in 3D plot but it's l
+
+# Add a scatter3d trace for the minimum point
+fig.add_trace(
+    go.Scatter3d(
+        x=[min_launch_date],
+        y=[min_TOF1],
+        z=[min_TOF2],
+        mode="markers",
+        marker=dict(size=8, color="red", symbol="circle"),
+        name="Minimum ΔV"
+    )
+)
+
 fig.show()

@@ -53,17 +53,17 @@ soi_planets = [
     8.66e6     # Neptune
 ]
 
-n = 15
-Planet_1 = 3
-Planet_2 = 2
-Planet_3 = 3
-Planet_4 = 2
+n = 40
+Planet_1 = 2
+Planet_2 = 3
+Planet_3 = 4
+Planet_4 = 5
 DeltaT_min1 = 100
 DeltaT_Max1 = 900
 DeltaT_min2 = 100
 DeltaT_Max2 = 900
-DeltaT_min3 = 100
-DeltaT_Max3 = 900
+DeltaT_min3 = 600
+DeltaT_Max3 = 1500
 
 # Insert the initial (departure) date here
 Y1 = 2030

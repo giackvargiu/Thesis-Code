@@ -2,6 +2,8 @@ import pickle
 import numpy as np
 import plotly.graph_objects as go
 
+# fig.write_html("delta_v_isosurface.html")
+
 # Load the data
 with open("pcp_4D_data.pkl", "rb") as f:
     launch_dates, deltaT_days1, deltaT_days2, deltaT_days3, Delta_V_matrix = pickle.load(f)
@@ -26,7 +28,7 @@ fig = go.Figure(data=[
         y=y,
         z=z,
         value=Delta_V_matrix[:, :, :, initial_idx].flatten(),
-        isomin=global_min,
+        isomin=global_min+15,
         isomax=global_max,
         surface_count=15,
         colorscale="Jet",
