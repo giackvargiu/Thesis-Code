@@ -22,3 +22,14 @@ echo "# test" > test_push.txt
 git add test_push.txt
 git commit -m "Test pushing a small file"
 git push
+
+
+# Quetzalcoatl
+
+ssh giacomovargiu@quetzalcoatl.upc.edu
+
+vPVrJ2DAvPFa
+
+cd ~/thesis-code/Thesis-Code
+
+git pull origin main
