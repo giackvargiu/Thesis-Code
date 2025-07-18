@@ -1,0 +1,7 @@
+# IDE folders
+.idea
+.vs
+
+# Virtual env
+.venv/
+venv/
